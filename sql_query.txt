@@ -1,0 +1,15 @@
+
+# 기관용 계정 사용자의 가정 사용을 알기 위함
+
+SELECT LEFT(a.profileId, 9) AS profilePrefix, a.profileId, a.createdAt, a.accountId, b.count_profileId, b.whether_institute
+FROM Research.Q_log_depth1 a
+
+INNER JOIN Research.institute_individual b
+on a.accountId = b.accountId
+
+WHERE 
+    a.profileId LIKE 'INST-KR-%' 
+    AND a.createdAt BETWEEN '2022-11-13T00:00:00Z' AND '2023-03-26T00:00:00Z'
+    AND a.accountId not like 'INST-KR-15%'
+    AND a.logtype = '0'
+    
